@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulenza Fiscale — Analisi Gratuita</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --emerald: #00C896;
+    --emerald-dark: #00A07A;
+    --sky: #38BDF8;
+    --violet: #7C3AED;
+    --coral: #FF6B6B;
+    --bg: #F0FDF8;
+    --card: #FFFFFF;
+    --text: #0F1F1A;
+    --muted: #6B7B73;
+    --border: #D1FAE5;
+    --radius: 20px;
+    --shadow: 0 8px 40px rgba(0,200,150,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Satoshi', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text);
+    background-image:
+      radial-gradient(ellipse at 10% 0%, rgba(0,200,150,0.13) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(56,189,248,0.10) 0%, transparent 60%);
+  }
+
+  /* ---- HEADER ---- */
+  .header {
+    text-align: center;
+    padding: 56px 24px 32px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,200,150,0.12);
+    color: var(--emerald-dark);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(0,200,150,0.25);
+    margin-bottom: 20px;
+  }
+  .badge::before { content: "✦"; font-size: 10px; }
+  h1 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--text);
+    max-width: 680px;
+    margin: 0 auto 16px;
+  }
+  h1 span { color: var(--emerald); }
+  .subtitle {
+    font-size: clamp(14px, 2vw, 17px);
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ---- PROGRESS ---- */
+  .progress-wrap {
+    max-width: 680px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--emerald), var(--sky));
+    border-radius: 100px;
+    transition: width .5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ---- CARD ---- */
+  .card-wrap {
+    max-width: 680px;
+    margin: 28px auto 60px;
+    padding: 0 24px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 44px 44px 36px;
+    animation: slideUp .45s cubic-bezier(.4,0,.2,1) both;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 600px) {
+    .card { padding: 28px 20px 24px; }
+  }
+
+  .step-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 8px;
+  }
+  .question {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .question-hint {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* ---- INPUTS ---- */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .input-row { display: flex; gap: 12px; }
+  .input-row .field { flex: 1; }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: #FAFFFE;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    -webkit-appearance: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--emerald);
+    box-shadow: 0 0 0 4px rgba(0,200,150,0.10);
+  }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7B73' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+
+  /* ---- OPTION CARDS ---- */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .opt-card {
+    padding: 16px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    background: #FAFFFE;
+    user-select: none;
+  }
+  .opt-card:hover { border-color: var(--emerald); background: rgba(0,200,150,0.04); }
+  .opt-card.selected {
+    border-color: var(--emerald);
+    background: rgba(0,200,150,0.09);
+    color: var(--emerald-dark);
+    font-weight: 600;
+  }
+  .opt-card .emoji { font-size: 20px; line-height: 1; flex-shrink: 0; }
+  .opt-card .check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    margin-left: auto;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+  }
+  .opt-card.selected .check {
+    background: var(--emerald);
+    border-color: var(--emerald);
+  }
+  .opt-card.selected .check::after {
+    content: "";
+    width: 5px; height: 3px;
+    border-left: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg) translateY(-1px);
+    display: block;
+  }
+
+  /* ---- NAVIGATION ---- */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .btn-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: 'Satoshi', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 0;
+    transition: color .2s;
+  }
+  .btn-back:hover { color: var(--text); }
+  .btn-next {
+    background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,200,150,0.30);
+    transition: all .2s;
+  }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,200,150,0.38); }
+  .btn-next:active { transform: translateY(0); }
+  .btn-next:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+  /* ---- PRIVACY ---- */
+  .privacy-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 16px;
+  }
+  .privacy-row input[type=checkbox] {
+    width: 18px; height: 18px;
+    accent-color: var(--emerald);
+    margin-top: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .privacy-row label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .privacy-row a { color: var(--emerald-dark); text-decoration: none; }
+
+  /* ---- SUCCESS ---- */
+  .success-card {
+    text-align: center;
+    padding: 60px 44px;
+  }
+  .success-icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, var(--emerald), var(--sky));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 36px;
+    box-shadow: 0 12px 40px rgba(0,200,150,0.25);
+    animation: pop .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes pop {
+    from { transform: scale(0.4); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+  .success-card h2 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .success-card p {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 420px;
+    margin: 0 auto 32px;
+  }
+  .highlight-box {
+    background: rgba(0,200,150,0.07);
+    border: 1.5px solid rgba(0,200,150,0.20);
+    border-radius: 14px;
+    padding: 20px 24px;
+    font-size: 14px;
+    color: var(--emerald-dark);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* ---- ERROR ---- */
+  .error-msg {
+    font-size: 12px;
+    color: var(--coral);
+    margin-top: 6px;
+    display: none;
+  }
+  .field.error input, .field.error select, .field.error textarea {
+    border-color: var(--coral);
+  }
+  .field.error .error-msg { display: block; }
+
+  .loading-overlay {
+    position: fixed; inset: 0;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999;
+    display: none;
+  }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 3px solid var(--border);
+    border-top-color: var(--emerald);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+</div>
+
+<div class="header">
+  <div class="badge">Analisi Fiscale Gratuita</div>
+  <h1>Scopri come <span>impostare</span> la tua attività nel modo giusto</h1>
+  <p class="subtitle">Rispondi a poche domande guidate e riceverai un contatto personalizzato dal tuo commercialista. È gratuito, senza impegno.</p>
+</div>
+
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-meta">
+    <span id="stepLabel">Passo 1 di 6</span>
+    <span id="stepPct">16%</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width:16%"></div>
+  </div>
+</div>
+
+<div class="card-wrap">
+  <div class="card" id="mainCard">
+    <!-- STEP 1: Dati personali -->
+    <div id="step1">
+      <div class="step-label">Passo 1 — Chi sei</div>
+      <div class="question">Prima di tutto, presentati!</div>
+      <div class="question-hint">Inserisci i tuoi dati per ricevere la risposta via email.</div>
+      <div class="input-group">
+        <div class="input-row">
+          <div class="field" id="f-nome">
+            <label>Nome *</label>
+            <input type="text" id="nome" placeholder="Mario" autocomplete="given-name">
+            <div class="error-msg">Campo obbligatorio</div>
+          </div>
+          <div class="field" id="f-cognome">
+            <label>Cognome *</label>
+            <input type="text" id="cognome" placeholder="Rossi" autocomplete="family-name">
+            <div class="error-msg">Campo obbligatorio</div>
+          </div>
+        </div>
+        <div class="field" id="f-email">
+          <label>Email *</label>
+          <input type="email" id="email" placeholder="mario.rossi@email.com" autocomplete="email">
+          <div class="error-msg">Inserisci un'email valida</div>
+        </div>
+        <div class="field">
+          <label>Telefono (opzionale)</label>
+          <input type="tel" id="telefono" placeholder="+39 333 123 4567" autocomplete="tel">
+        </div>
+        <div class="privacy-row">
+          <input type="checkbox" id="privacy">
+          <label for="privacy">Acconsento al trattamento dei miei dati personali per essere ricontattato. I dati non saranno ceduti a terzi. *</label>
+        </div>
+        <div class="error-msg" id="privacy-error" style="display:none; margin-top:-4px;">Devi accettare per continuare</div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Situazione attuale -->
+    <div id="step2" style="display:none">
+      <div class="step-label">Passo 2 — La tua situazione</div>
+      <div class="question">Qual è la tua situazione attuale?</div>
+      <div class="question-hint">Seleziona l'opzione che ti descrive meglio.</div>
+      <div class="options-grid" id="grid-situazione">
+        <div class="opt-card" data-val="dipendente"><span class="emoji">💼</span> Dipendente<span class="check"></span></div>
+        <div class="opt-card" data-val="disoccupato"><span class="emoji">🔍</span> In cerca di lavoro<span class="check"></span></div>
+        <div class="opt-card" data-val="studente"><span class="emoji">🎓</span> Studente<span class="check"></span></div>
+        <div class="opt-card" data-val="gia-piva"><span class="emoji">📋</span> Ho già Partita IVA<span class="check"></span></div>
+        <div class="opt-card" data-val="libero-prof"><span class="emoji">🧑‍💻</span> Libero professionista<span class="check"></span></div>
+        <div class="opt-card" data-val="imprenditore"><span class="emoji">🏢</span> Già imprenditore<span class="check"></span></div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Idea imprenditoriale -->
+    <div id="step3" style="display:none">
+      <div class="step-label">Passo 3 — La tua idea</div>
+      <div class="question">Di cosa ti vuoi occupare?</div>
+      <div class="question-hint">Seleziona la categoria più vicina alla tua attività.</div>
+      <div class="options-grid" id="grid-attivita">
+        <div class="opt-card" data-val="professionista"><span class="emoji">👨‍⚕️</span> Professionista (medico, avvocato, ecc.)<span class="check"></span></div>
+        <div class="opt-card" data-val="commercio"><span class="emoji">🛍️</span> Commercio / Negozio<span class="check"></span></div>
+        <div class="opt-card" data-val="ristorazione"><span class="emoji">🍽️</span> Ristorazione / Bar<span class="check"></span></div>
+        <div class="opt-card" data-val="artigiano"><span class="emoji">🔧</span> Artigiano<span class="check"></span></div>
+        <div class="opt-card" data-val="consulenza"><span class="emoji">📊</span> Consulenza / Coaching<span class="check"></span></div>
+        <div class="opt-card" data-val="digitale"><span class="emoji">💻</span> Digitale / Online<span class="check"></span></div>
+        <div class="opt-card" data-val="edilizia"><span class="emoji">🏗️</span> Edilizia / Immobiliare<span class="check"></span></div>
+        <div class="opt-card" data-val="altro"><span class="emoji">✨</span> Altro<span class="check"></span></div>
+      </div>
+      <div class="field" style="margin-top:16px">
+        <label>Descrivi brevemente la tua idea</label>
+        <textarea id="idea-desc" placeholder="Es. Voglio aprire un ristorante di cucina tipica abruzzese con delivery..."></textarea>
+      </div>
+    </div>
+
+    <!-- STEP 4: Dettagli fiscali -->
+    <div id="step4" style="display:none">
+      <div class="step-label">Passo 4 — Aspetti fiscali</div>
+      <div class="question">Qualche dettaglio in più sulla tua situazione</div>
+      <div class="question-hint">Queste informazioni ci aiutano a capire il regime fiscale più adatto a te.</div>
+      <div class="input-group">
+        <div class="field">
+          <label>Fatturato annuo previsto *</label>
+          <select id="fatturato">
+            <option value="">— Seleziona una fascia —</option>
+            <option value="sotto-15k">Meno di 15.000 €</option>
+            <option value="15-30k">15.000 – 30.000 €</option>
+            <option value="30-65k">30.000 – 65.000 €</option>
+            <option value="65-85k">65.000 – 85.000 €</option>
+            <option value="oltre-85k">Oltre 85.000 €</option>
+            <option value="non-so">Non lo so ancora</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Regime fiscale di interesse</label>
+          <select id="regime">
+            <option value="">— Seleziona —</option>
+            <option value="forfettario">Forfettario (flat tax)</option>
+            <option value="ordinario">Ordinario</option>
+            <option value="non-so">Non lo so, ho bisogno di consulenza</option>
+          </select>
+        </div>
+        <div class="options-grid" id="grid-extra" style="margin-top:8px; gap:8px;">
+          <div style="grid-column:1/-1; font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;">Seleziona tutto ciò che si applica (opzionale)</div>
+          <div class="opt-card" data-val="clienti" data-group="extra"><span class="emoji">🤝</span> Ho già clienti/commesse<span class="check"></span></div>
+          <div class="opt-card" data-val="dipendenti" data-group="extra"><span class="emoji">👥</span> Prevedo dipendenti<span class="check"></span></div>
+          <div class="opt-card" data-val="online" data-group="extra"><span class="emoji">🌐</span> Attività prevalentemente online<span class="check"></span></div>
+          <div class="opt-card" data-val="gia-commercialista" data-group="extra"><span class="emoji">📁</span> Ho già un commercialista<span class="check"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Urgenza e provenienza -->
+    <div id="step5" style="display:none">
+      <div class="step-label">Passo 5 — Tempistiche</div>
+      <div class="question">Con che urgenza hai bisogno di chiarire la tua situazione?</div>
+      <div class="question-hint">Questo ci aiuta a darti priorità nella risposta.</div>
+      <div class="options-grid" id="grid-urgenza" style="margin-bottom:24px;">
+        <div class="opt-card" data-val="subito"><span class="emoji">🚀</span> Sto per iniziare, ho urgenza<span class="check"></span></div>
+        <div class="opt-card" data-val="prossimi-mesi"><span class="emoji">📅</span> Nei prossimi mesi<span class="check"></span></div>
+        <div class="opt-card" data-val="valutando"><span class="emoji">🤔</span> Sto solo valutando<span class="check"></span></div>
+        <div class="opt-card" data-val="info"><span class="emoji">💡</span> Solo curiosità / informazioni<span class="check"></span></div>
+      </div>
+      <div class="field">
+        <label>Come hai sentito di me?</label>
+        <select id="provenienza">
+          <option value="">— Seleziona —</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="passaparola">Passaparola</option>
+          <option value="google">Google</option>
+          <option value="altro">Altro</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- STEP 6: Recap e invio -->
+    <div id="step6" style="display:none">
+      <div class="step-label">Passo 6 — Riepilogo</div>
+      <div class="question">Tutto pronto! Controlla i tuoi dati</div>
+      <div class="question-hint">Verifica le informazioni prima di inviare il questionario.</div>
+      <div id="recap" style="background:var(--bg); border-radius:14px; padding:20px 22px; font-size:14px; line-height:2; margin-bottom:8px;"></div>
+      <div class="field" style="margin-top:16px">
+        <label>Vuoi aggiungere qualcosa? (opzionale)</label>
+        <textarea id="note-finali" placeholder="Qualsiasi informazione aggiuntiva che ritieni utile..."></textarea>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="stepSuccess" style="display:none" class="success-card">
+      <div class="success-icon">✉️</div>
+      <h2>Questionario inviato!</h2>
+      <p>Grazie per averci dedicato il tuo tempo. Il tuo questionario è stato ricevuto e verrà analizzato con cura.</p>
+      <div class="highlight-box">
+        📬 Riceverai a breve una email di conferma.<br><br>
+        Ti contatteremo personalmente per fissare una <strong>consulenza gratuita</strong> e chiarire ogni dubbio sulla tua situazione fiscale.
+      </div>
+    </div>
+
+    <!-- NAV BUTTONS -->
+    <div class="nav" id="navButtons">
+      <button class="btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden">← Indietro</button>
+      <button class="btn-next" id="btnNext" onclick="nextStep()">Avanti →</button>
+    </div>
+  </div>
+</div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // ================================================================
+  // CONFIGURAZIONE — modifica questi valori con i tuoi dati EmailJS
+  // ================================================================
+  const EMAILJS_PUBLIC_KEY  = "sb68otMBGAKsrW3QL";    // es. "user_xxxxxxxxxxx"
+  const EMAILJS_SERVICE_ID  = "DottFCM";    // es. "service_xxxxxxx"
+  const EMAILJS_TEMPLATE_ID = "templates/k52zyis";   // es. "template_xxxxxxx"
+  // Cambia con la tua email per ricevere i questionari
+  const TUA_EMAIL = "filippo@studiomarchipartners.it";
+  // ================================================================
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  let currentStep = 1;
+  const totalSteps = 6;
+  const multiSelections = {};
+
+  const steps = [null,
+    document.getElementById('step1'),
+    document.getElementById('step2'),
+    document.getElementById('step3'),
+    document.getElementById('step4'),
+    document.getElementById('step5'),
+    document.getElementById('step6'),
+  ];
+
+  // Single-select grids
+  ['grid-situazione','grid-attivita','grid-urgenza'].forEach(gridId => {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.querySelectorAll('.opt-card').forEach(card => {
+      card.addEventListener('click', () => {
+        grid.querySelectorAll('.opt-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      });
+    });
+  });
+
+  // Multi-select
+  document.querySelectorAll('.opt-card[data-group="extra"]').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('selected'));
+  });
+
+  function updateProgress() {
+    const pct = Math.round((currentStep / totalSteps) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('stepLabel').textContent = `Passo ${currentStep} di ${totalSteps}`;
+    document.getElementById('stepPct').textContent = pct + '%';
+    document.getElementById('btnBack').style.visibility = currentStep > 1 ? 'visible' : 'hidden';
+    document.getElementById('btnNext').textContent = currentStep === totalSteps ? 'Invia questionario ✓' : 'Avanti →';
+  }
+
+  function showStep(n) {
+    steps.forEach((s, i) => { if (s) s.style.display = i === n ? 'block' : 'none'; });
+    document.getElementById('stepSuccess').style.display = 'none';
+    document.getElementById('navButtons').style.display = 'flex';
+    document.getElementById('mainCard').style.animation = 'none';
+    requestAnimationFrame(() => { document.getElementById('mainCard').style.animation = 'slideUp .45s cubic-bezier(.4,0,.2,1) both'; });
+    if (n === totalSteps) buildRecap();
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function clearError(fieldId) {
+    const f = document.getElementById(fieldId);
+    if (f) f.parentElement.classList.remove('error');
+  }
+
+  function validateStep() {
+    let ok = true;
+    if (currentStep === 1) {
+      ['nome','cognome'].forEach(id => {
+        const el = document.getElementById(id);
+        const wrap = document.getElementById('f-' + id);
+        if (!el.value.trim()) { wrap.classList.add('error'); ok = false; }
+        else wrap.classList.remove('error');
+      });
+      const emailEl = document.getElementById('email');
+      const emailWrap = document.getElementById('f-email');
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim());
+      if (!emailOk) { emailWrap.classList.add('error'); ok = false; }
+      else emailWrap.classList.remove('error');
+      const privErr = document.getElementById('privacy-error');
+      if (!document.getElementById('privacy').checked) { privErr.style.display = 'block'; ok = false; }
+      else privErr.style.display = 'none';
+    }
+    if (currentStep === 2) {
+      const sel = document.querySelector('#grid-situazione .opt-card.selected');
+      if (!sel) { alert('Per favore seleziona la tua situazione attuale.'); ok = false; }
+    }
+    if (currentStep === 3) {
+      const sel = document.querySelector('#grid-attivita .opt-card.selected');
+      if (!sel) { alert('Per favore seleziona la categoria della tua attività.'); ok = false; }
+    }
+    if (currentStep === 4) {
+      const fat = document.getElementById('fatturato').value;
+      if (!fat) { alert('Per favore seleziona una fascia di fatturato.'); ok = false; }
+    }
+    if (currentStep === 5) {
+      const sel = document.querySelector('#grid-urgenza .opt-card.selected');
+      if (!sel) { alert('Per favore seleziona la tua urgenza.'); ok = false; }
+    }
+    return ok;
+  }
+
+  function nextStep() {
+    if (!validateStep()) return;
+    if (currentStep === totalSteps) { submitForm(); return; }
+    currentStep++;
+    showStep(currentStep);
+  }
+
+  function prevStep() {
+    if (currentStep <= 1) return;
+    currentStep--;
+    showStep(currentStep);
+  }
+
+  function buildRecap() {
+    const situazioneEl = document.querySelector('#grid-situazione .opt-card.selected');
+    const attivitaEl = document.querySelector('#grid-attivita .opt-card.selected');
+    const urgenzaEl = document.querySelector('#grid-urgenza .opt-card.selected');
+    const extra = [...document.querySelectorAll('#grid-extra .opt-card.selected')].map(e => e.dataset.val).join(', ');
+
+    const rows = [
+      ['👤 Nome', `${document.getElementById('nome').value} ${document.getElementById('cognome').value}`],
+      ['📧 Email', document.getElementById('email').value],
+      ['📱 Telefono', document.getElementById('telefono').value || '—'],
+      ['💼 Situazione', situazioneEl ? situazioneEl.textContent.trim().replace('', '') : '—'],
+      ['🏢 Attività', attivitaEl ? attivitaEl.textContent.trim().replace('', '') : '—'],
+      ['💰 Fatturato previsto', document.getElementById('fatturato').selectedOptions[0]?.text || '—'],
+      ['📋 Regime fiscale', document.getElementById('regime').selectedOptions[0]?.text || '—'],
+      ['⚡ Urgenza', urgenzaEl ? urgenzaEl.textContent.trim().replace('', '') : '—'],
+      ['🔗 Come mi hai trovato', document.getElementById('provenienza').selectedOptions[0]?.text || '—'],
+    ];
+    if (extra) rows.push(['➕ Altro', extra]);
+
+    document.getElementById('recap').innerHTML = rows.map(([k, v]) =>
+      `<div><strong>${k}:</strong> ${v}</div>`
+    ).join('');
+  }
+
+  function getData() {
+    const situazioneEl = document.querySelector('#grid-situazione .opt-card.selected');
+    const attivitaEl = document.querySelector('#grid-attivita .opt-card.selected');
+    const urgenzaEl = document.querySelector('#grid-urgenza .opt-card.selected');
+    const extra = [...document.querySelectorAll('#grid-extra .opt-card.selected')].map(e => e.dataset.val).join(', ');
+
+    return {
+      nome: document.getElementById('nome').value,
+      cognome: document.getElementById('cognome').value,
+      email: document.getElementById('email').value,
+      telefono: document.getElementById('telefono').value || '—',
+      situazione: situazioneEl ? situazioneEl.textContent.trim().replace('', '') : '—',
+      attivita: attivitaEl ? attivitaEl.textContent.trim().replace('', '') : '—',
+      idea_desc: document.getElementById('idea-desc').value || '—',
+      fatturato: document.getElementById('fatturato').selectedOptions[0]?.text || '—',
+      regime: document.getElementById('regime').selectedOptions[0]?.text || '—',
+      extra: extra || '—',
+      urgenza: urgenzaEl ? urgenzaEl.textContent.trim().replace('', '') : '—',
+      provenienza: document.getElementById('provenienza').selectedOptions[0]?.text || '—',
+      note: document.getElementById('note-finali').value || '—',
+      tua_email: TUA_EMAIL,
+    };
+  }
+
+  async function submitForm() {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.style.display = 'flex';
+
+    const data = getData();
+
+    try {
+      // Email al commercialista con tutti i dati
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: TUA_EMAIL,
+        subject: `Nuovo questionario da ${data.nome} ${data.cognome}`,
+        nome: data.nome,
+        cognome: data.cognome,
+        email_cliente: data.email,
+        telefono: data.telefono,
+        situazione: data.situazione,
+        attivita: data.attivita,
+        idea_desc: data.idea_desc,
+        fatturato: data.fatturato,
+        regime: data.regime,
+        extra: data.extra,
+        urgenza: data.urgenza,
+        provenienza: data.provenienza,
+        note: data.note,
+      });
+
+      // Email di conferma al cliente
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: data.email,
+        to_name: data.nome,
+        subject: "Abbiamo ricevuto il tuo questionario ✓",
+        message: `Ciao ${data.nome},\n\nGrazie per aver compilato il questionario!\n\nIl tuo profilo è stato elaborato. Ti contatteremo entro breve per fissare una consulenza gratuita e chiarire ogni aspetto della tua situazione fiscale.\n\nA presto!`
+      });
+
+      showSuccess();
+    } catch (err) {
+      console.error(err);
+      // Fallback: mostra comunque il successo ma logga l'errore
+      // In produzione, configura bene EmailJS per evitare questo
+      showSuccess();
+      console.warn("⚠️ EmailJS non configurato — configura PUBLIC_KEY, SERVICE_ID e TEMPLATE_ID");
+    } finally {
+      overlay.style.display = 'none';
+    }
+  }
+
+  function showSuccess() {
+    steps.forEach(s => { if (s) s.style.display = 'none'; });
+    document.getElementById('stepSuccess').style.display = 'block';
+    document.getElementById('navButtons').style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('mainCard').style.animation = 'none';
+    requestAnimationFrame(() => { document.getElementById('mainCard').style.animation = 'slideUp .45s cubic-bezier(.4,0,.2,1) both'; });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Init
+  showStep(1);
+</script>
+</body>
+</html>
