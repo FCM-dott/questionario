@@ -735,7 +735,6 @@
       // Email al commercialista con tutti i dati
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         to_email: TUA_EMAIL,
-        subject: `Nuovo questionario da ${data.nome} ${data.cognome}`,
         nome: data.nome,
         cognome: data.cognome,
         email_cliente: data.email,
@@ -751,21 +750,11 @@
         note: data.note,
       });
 
-      // Email di conferma al cliente
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_email: data.email,
-        to_name: data.nome,
-        subject: "Abbiamo ricevuto il tuo questionario ✓",
-        message: `Ciao ${data.nome},\n\nGrazie per aver compilato il questionario!\n\nIl tuo profilo è stato elaborato. Ti contatteremo entro breve per fissare una consulenza gratuita e chiarire ogni aspetto della tua situazione fiscale.\n\nA presto!`
-      });
-
       showSuccess();
     } catch (err) {
-      console.error(err);
-      // Fallback: mostra comunque il successo ma logga l'errore
-      // In produzione, configura bene EmailJS per evitare questo
-      showSuccess();
-      console.warn("⚠️ EmailJS non configurato — configura PUBLIC_KEY, SERVICE_ID e TEMPLATE_ID");
+      console.error('Errore EmailJS:', err);
+      overlay.style.display = 'none';
+      alert('Si è verificato un errore nell\'invio. Riprova o contatta direttamente: ' + TUA_EMAIL);
     } finally {
       overlay.style.display = 'none';
     }
