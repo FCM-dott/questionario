@@ -436,33 +436,39 @@
       <div class="question">Qual è la tua situazione attuale?</div>
       <div class="question-hint">Seleziona l'opzione che ti descrive meglio.</div>
       <div class="options-grid" id="grid-situazione">
-        <div class="opt-card" data-val="dipendente"><span class="emoji">💼</span> Dipendente<span class="check"></span></div>
-        <div class="opt-card" data-val="disoccupato"><span class="emoji">🔍</span> In cerca di lavoro<span class="check"></span></div>
-        <div class="opt-card" data-val="studente"><span class="emoji">🎓</span> Studente<span class="check"></span></div>
+        <div class="opt-card" data-val="voglio-aprire"><span class="emoji">🚀</span> Voglio aprire un'attività<span class="check"></span></div>
         <div class="opt-card" data-val="gia-piva"><span class="emoji">📋</span> Ho già Partita IVA<span class="check"></span></div>
         <div class="opt-card" data-val="libero-prof"><span class="emoji">🧑‍💻</span> Libero professionista<span class="check"></span></div>
-        <div class="opt-card" data-val="imprenditore"><span class="emoji">🏢</span> Già imprenditore<span class="check"></span></div>
+        <div class="opt-card" data-val="imprenditore"><span class="emoji">🏢</span> Ho già un'azienda / società<span class="check"></span></div>
+        <div class="opt-card" data-val="cambio-commercialista"><span class="emoji">🔄</span> Voglio cambiare commercialista<span class="check"></span></div>
+        <div class="opt-card" data-val="altro-step2"><span class="emoji">💬</span> Altro / non sono sicuro<span class="check"></span></div>
+      </div>
+      <!-- Messaggio per chi non è il target giusto - nascosto di default -->
+      <div id="wrong-audience-msg" style="display:none; margin-top:20px; padding:20px 22px; background:rgba(0,200,150,0.07); border:1.5px solid rgba(0,200,150,0.20); border-radius:14px;">
+        <p style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:8px;">Capito! Per ora non sei nel momento giusto.</p>
+        <p style="font-size:14px; color:var(--muted); line-height:1.6;">Il nostro servizio è pensato per chi ha già un'attività o sta per avviarne una. Quando sarà il momento, saremo qui.<br><br>Nel frattempo puoi seguirci su <a href="https://www.linkedin.com/in/filippo-cesaroni-marchi/" target="_blank">LinkedIn</a> per restare aggiornato su fisco e novità fiscali utili.</p>
       </div>
     </div>
 
-    <!-- STEP 3: Idea imprenditoriale -->
+    <!-- STEP 3: Attività -->
     <div id="step3" style="display:none">
-      <div class="step-label">Passo 3 — La tua idea</div>
-      <div class="question">Di cosa ti vuoi occupare?</div>
-      <div class="question-hint">Seleziona la categoria più vicina alla tua attività.</div>
+      <div class="step-label">Passo 3 — La tua attività</div>
+      <div class="question" id="step3-question">In quale settore operi?</div>
+      <div class="question-hint" id="step3-hint">Seleziona la categoria più vicina alla tua attività.</div>
       <div class="options-grid" id="grid-attivita">
         <div class="opt-card" data-val="professionista"><span class="emoji">👨‍⚕️</span> Professionista (medico, avvocato, ecc.)<span class="check"></span></div>
         <div class="opt-card" data-val="commercio"><span class="emoji">🛍️</span> Commercio / Negozio<span class="check"></span></div>
         <div class="opt-card" data-val="ristorazione"><span class="emoji">🍽️</span> Ristorazione / Bar<span class="check"></span></div>
-        <div class="opt-card" data-val="artigiano"><span class="emoji">🔧</span> Artigiano<span class="check"></span></div>
+        <div class="opt-card" data-val="artigiano"><span class="emoji">🔧</span> Artigiano</span><span class="check"></span></div>
         <div class="opt-card" data-val="consulenza"><span class="emoji">📊</span> Consulenza / Coaching<span class="check"></span></div>
-        <div class="opt-card" data-val="digitale"><span class="emoji">💻</span> Digitale / Online<span class="check"></span></div>
+        <div class="opt-card" data-val="digitale"><span class="emoji">💻</span> Digitale / Online / E-commerce<span class="check"></span></div>
         <div class="opt-card" data-val="edilizia"><span class="emoji">🏗️</span> Edilizia / Immobiliare<span class="check"></span></div>
+        <div class="opt-card" data-val="manifattura"><span class="emoji">🏭</span> Manifattura / Tessile<span class="check"></span></div>
         <div class="opt-card" data-val="altro"><span class="emoji">✨</span> Altro<span class="check"></span></div>
       </div>
       <div class="field" style="margin-top:16px">
-        <label>Descrivi brevemente la tua idea</label>
-        <textarea id="idea-desc" placeholder="Es. Voglio aprire un ristorante di cucina tipica abruzzese con delivery..."></textarea>
+        <label id="step3-textarea-label">Descrivi brevemente la tua attività (opzionale)</label>
+        <textarea id="idea-desc" placeholder="Es. Gestisco un'azienda tessile da 8 anni e sto valutando di cambiare studio..."></textarea>
       </div>
     </div>
 
@@ -544,8 +550,8 @@
       <h2>Questionario inviato!</h2>
       <p>Grazie per averci dedicato il tuo tempo. Il tuo questionario è stato ricevuto e verrà analizzato con cura.</p>
       <div class="highlight-box">
-        📬 Riceverai a breve una email di conferma.<br><br>
-        Ti contatteremo personalmente per fissare una <strong>consulenza gratuita</strong> e chiarire ogni dubbio sulla tua situazione fiscale.
+        📬 <strong>Filippo ti risponderà personalmente entro 24 ore</strong> con una prima valutazione scritta della tua situazione.<br><br>
+        Riceverai una email di conferma a breve. Nel frattempo, puoi seguire aggiornamenti fiscali utili su <a href="https://www.linkedin.com/in/filippo-cesaroni-marchi/" target="_blank" style="color:var(--emerald-dark); font-weight:600;">LinkedIn →</a>
       </div>
     </div>
 
@@ -593,6 +599,37 @@
       card.addEventListener('click', () => {
         grid.querySelectorAll('.opt-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
+
+        // Logica speciale per step 2
+        if (gridId === 'grid-situazione') {
+          const val = card.dataset.val;
+          const wrongMsg = document.getElementById('wrong-audience-msg');
+          const btnNext = document.getElementById('btnNext');
+          if (val === 'altro-step2') {
+            wrongMsg.style.display = 'block';
+            btnNext.disabled = true;
+          } else {
+            wrongMsg.style.display = 'none';
+            btnNext.disabled = false;
+            // Adatta testo step 3 in base alla selezione
+            const hasActivity = ['gia-piva','libero-prof','imprenditore','cambio-commercialista'].includes(val);
+            const q = document.getElementById('step3-question');
+            const h = document.getElementById('step3-hint');
+            const lbl = document.getElementById('step3-textarea-label');
+            const ta = document.getElementById('idea-desc');
+            if (hasActivity) {
+              q.textContent = 'In quale settore opera la tua attività?';
+              h.textContent = 'Seleziona il settore più vicino a quello in cui lavori.';
+              lbl.textContent = 'Raccontaci brevemente la tua attività (opzionale)';
+              ta.placeholder = 'Es. Gestisco una SRL nel settore tessile da 5 anni, 3 dipendenti, fatturato ~400k...';
+            } else {
+              q.textContent = 'In quale settore vuoi operare?';
+              h.textContent = 'Seleziona la categoria più vicina alla tua idea di attività.';
+              lbl.textContent = 'Descrivi brevemente la tua idea (opzionale)';
+              ta.placeholder = 'Es. Voglio aprire uno studio di consulenza digitale per PMI...';
+            }
+          }
+        }
       });
     });
   });
@@ -648,6 +685,7 @@
     if (currentStep === 2) {
       const sel = document.querySelector('#grid-situazione .opt-card.selected');
       if (!sel) { alert('Per favore seleziona la tua situazione attuale.'); ok = false; }
+      else if (sel.dataset.val === 'altro-step2') { ok = false; } // bloccato dal messaggio visivo
     }
     if (currentStep === 3) {
       const sel = document.querySelector('#grid-attivita .opt-card.selected');
